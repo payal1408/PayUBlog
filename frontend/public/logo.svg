@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 100" fill="none">
+  <!-- Speech Bubble Icon -->
+  <g transform="translate(5, 5)">
+    <path d="M 22 0 C 9.8 0 0 9.8 0 22 L 0 54 C 0 66.2 9.8 76 22 76 L 24 76 L 18 94 L 42 76 L 74 76 C 86.2 76 96 66.2 96 54 L 96 22 C 96 9.8 86.2 0 74 0 Z" fill="#1e7355" />
+    <path d="M 48 18 L 26 40 L 37 40 L 37 62 L 59 62 L 59 40 L 70 40 Z" fill="#ffffff" />
+  </g>
+  <!-- Brand Text: PayUBlog -->
+  <text x="118" y="65" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif" font-size="52" font-weight="800" letter-spacing="-1.5">
+    <tspan fill="#104e39">Pay</tspan><tspan fill="#6abf9d">UBlog</tspan>
+  </text>
+</svg>
