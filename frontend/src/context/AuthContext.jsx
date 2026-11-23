@@ -48,8 +48,8 @@ export const AuthProvider = ({ children }) => {
 
   // Signup handler (accepts FormData or Object)
   const signup = async (formData) => {
-    const headers = formData instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : {};
-    const response = await API.post('/auth/register', formData, { headers });
+    // Let axios set Content-Type (incl. multipart boundary) automatically
+    const response = await API.post('/auth/register', formData);
     if (response.data?.success) {
       const { token, user: userData } = response.data.data;
       localStorage.setItem('aether_token', token);
@@ -57,6 +57,19 @@ export const AuthProvider = ({ children }) => {
       return response.data;
     }
     throw new Error(response.data?.message || 'Registration failed');
+  };
+
+  // Reset password handler (logs user in on success)
+  const resetPassword = async (token, password) => {
+    const response = await API.post('/auth/reset-password', { token, password });
+    if (response.data?.success) {
+      const { token: newToken } = response.data.data;
+      localStorage.setItem('aether_token', newToken);
+      const me = await API.get('/auth/me');
+      setUser(me.data.data.user);
+      return response.data;
+    }
+    throw new Error(response.data?.message || 'Password reset failed');
   };
 
   // Logout handler
@@ -84,6 +97,7 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated: !!user,
         login,
         signup,
+        resetPassword,
         logout,
         updateUserProfile,
       }}

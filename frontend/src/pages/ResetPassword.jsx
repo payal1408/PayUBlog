@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
-import API from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
 const ResetPassword = () => {
   const { token } = useParams();
   const navigate = useNavigate();
   const { showToast } = useToast();
+  const { resetPassword } = useAuth();
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -33,7 +34,7 @@ const ResetPassword = () => {
 
     setSubmitting(true);
     try {
-      await API.post('/auth/reset-password', { token, password });
+      await resetPassword(token, password);
       showToast('Password reset successfully! Redirecting...', 'success');
       navigate('/dashboard');
     } catch (err) {

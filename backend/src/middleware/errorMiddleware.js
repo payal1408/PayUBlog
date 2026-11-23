@@ -35,6 +35,12 @@ const errorHandler = (err, req, res, next) => {
       .join(', ');
   }
 
+  // Handle Multer upload errors (file too large, invalid type)
+  if (err.name === 'MulterError' || (err.message || '').startsWith('Invalid file format')) {
+    statusCode = 400;
+    if (err.code === 'LIMIT_FILE_SIZE') message = 'Image must be 5MB or smaller.';
+  }
+
   // Handle JWT Error
   if (err.name === 'JsonWebTokenError') {
     statusCode = 401;
